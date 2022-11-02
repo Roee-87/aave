@@ -20,18 +20,18 @@ contract VaultUSDC {
         return IPoolAddressesProvider(poolProviderAddress).getPool();
     }
 
-    function approveDaiToAave(uint256 _amount) public {
+    function approveUsdcToAave(uint256 _amount) public {
         IERC20(usdcAddr).approve(getPoolAddress(), _amount);
     }
 
-    function supplyDaiToAave(uint256 _amount) public {
+    function supplyUsdcToAave(uint256 _amount) public {
         bytes32 args = L2Encoder(0x9abADECD08572e0eA5aF4d47A9C7984a5AA503dC)
             .encodeSupplyParams(usdcAddr, _amount, 0);
         pool = IL2Pool(poolAddress);
         pool.supply(args);
     }
 
-    function withdrawDaiFromAave(uint256 _amount) public {
+    function withdrawUsdcFromAave(uint256 _amount) public {
         bytes32 args = encoder.encodeWithdrawParams(usdcAddr, _amount);
         pool.withdraw(args);
     }
@@ -40,7 +40,7 @@ contract VaultUSDC {
         return IERC20(usdcAddr).balanceOf(msg.sender);
     }
 
-    function getADaiBalance() public view returns (uint256) {
+    function getUsdcBalance() public view returns (uint256) {
         return IERC20(aUsdcToken).balanceOf(msg.sender);
     }
 
