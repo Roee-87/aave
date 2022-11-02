@@ -6,7 +6,7 @@ import {IL2Pool} from "@aave/core-v3/contracts/interfaces/IL2Pool.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IPoolAddressesProvider} from "@aave/core-v3/contracts/interfaces/IPoolAddressesProvider.sol";
 
-contract TestVault {
+contract VaultDai {
     address daiAddr = 0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1;
     address poolProviderAddress = 0xa97684ead0e402dC232d5A977953DF7ECBaB3CDb;
     address poolAddress = 0x794a61358D6845594F94dc1DB02A252b5b4814aD;
