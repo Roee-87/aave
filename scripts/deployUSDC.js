@@ -7,24 +7,24 @@
 const { ethers } = require("hardhat");
 
 async function main() {
-  const Vault = await ethers.getContractFactory("VaultDai");
-  const vaultDai = await Vault.deploy();
+  const Vault = await ethers.getContractFactory("VaultUSDC");
+  const vaultUSDC = await Vault.deploy();
 
-  await vaultDai.deployed();
+  await vaultUSDC.deployed();
 
-  console.log(`Vault contract deployed to ${vaultDai.address}`);
+  console.log(`Vault contract deployed to ${vaultUSDC.address}`);
 
   const addr1 = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
 
-  const num1 = await vaultDai.checkDaiBalance(addr1);
+  const num1 = await vaultUSDC.checkDaiBalance(addr1);
 
   console.log(`Address ${addr1} has Dai balance ${num1}`);
   //console.log(`Address ${addr1} has Dai balance ${num2}`);
 
-  await vaultDai.approveDaiToAave(1000);
-  console.log(`pool address is:  ${await vaultDai.getPoolAddress()}`);
-  console.log(`my dai balance is ${await vaultDai.getDaiBalance()}`);
-  const val = await vaultDai.checkAllowance();
+  await vaultUSDC.approveDaiToAave(1000);
+  console.log(`pool address is:  ${await vaultUSDC.getPoolAddress()}`);
+  console.log(`my dai balance is ${await vaultUSDC.getDaiBalance()}`);
+  const val = await vaultUSDC.checkAllowance();
   //await vault.supplyDaiToAave(1000);
   console.log(`allowance is ${val}`);
 }
