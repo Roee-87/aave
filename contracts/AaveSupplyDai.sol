@@ -31,8 +31,13 @@ contract VaultDai {
         pool.supply(args);
     }
 
+    function approveADaiWtihdrawlFromAave(uint256 _amount) public {
+        IERC20(aDaiToken).approve(getPoolAddress(), _amount);
+    }
+
     function withdrawDaiFromAave(uint256 _amount) public {
-        bytes32 args = encoder.encodeWithdrawParams(daiAddr, _amount);
+        bytes32 args = L2Encoder(0x9abADECD08572e0eA5aF4d47A9C7984a5AA503dC)
+            .encodeWithdrawParams(daiAddr, _amount);
         pool.withdraw(args);
     }
 
@@ -40,11 +45,19 @@ contract VaultDai {
         return IERC20(daiAddr).balanceOf(msg.sender);
     }
 
-    function getADaiBalance() public view returns (uint256) {
-        return IERC20(aDaiToken).balanceOf(msg.sender);
+    function getADaiBalanceVault() public view returns (uint256) {
+        return IERC20(aDaiToken).balanceOf(address(this));
     }
 
-    function checkAllowance() public view returns (uint256) {
+    function getADaiBalanceUser(address addr) public view returns (uint256) {
+        return IERC20(aDaiToken).balanceOf(addr);
+    }
+
+    function checkDaiAllowance() public view returns (uint256) {
+        return IERC20(daiAddr).allowance(address(this), getPoolAddress());
+    }
+
+    function checkADaiAllowance() public view returns (uint256) {
         return IERC20(daiAddr).allowance(msg.sender, getPoolAddress());
     }
 
@@ -52,7 +65,8 @@ contract VaultDai {
         return IERC20(daiAddr).balanceOf(addr);
     }
 
-    function transferDai(address adr) public {
-        IERC20(daiAddr).transfer(adr, 10);
+    function returnDaiToUser(uint256 _amount) public {
+        address addr = msg.sender;
+        IERC20(daiAddr).transfer(addr, _amount);
     }
 }
