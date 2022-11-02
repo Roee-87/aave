@@ -1,4 +1,4 @@
-This code simulates a user depositing an amount of Dai into a smart contract (vaultDai), which then deposits that Dai into Aave. The code then executes a withdrawl of Dai back to the smart contract, and then returns that Dai back to the original user.
+This code simulates a user depositing an amount of Dai into a smart contract (vaultDai), which then deposits that Dai into Aave. The code then executes a withdrawl of Dai back to the smart contract, and then returns that Dai back to the original user. This repot can be cloned, yarn init should install all of the required dependencies.
 
 # Deploying funds to Aave using forked Optimism mainnet
 
