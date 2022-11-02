@@ -36,11 +36,11 @@ contract VaultUSDC {
         pool.withdraw(args);
     }
 
-    function getDaiBalance() public view returns (uint256) {
+    function getUsdcBalance() public view returns (uint256) {
         return IERC20(usdcAddr).balanceOf(msg.sender);
     }
 
-    function getUsdcBalance() public view returns (uint256) {
+    function getAUsdcBalance() public view returns (uint256) {
         return IERC20(aUsdcToken).balanceOf(msg.sender);
     }
 

@@ -18,12 +18,12 @@ async function main() {
 
   const num1 = await vaultUSDC.checkUsdcBalance(addr1);
 
-  console.log(`Address ${addr1} has Dai balance ${num1}`);
+  console.log(`Address ${addr1} has USDC balance ${num1}`);
   //console.log(`Address ${addr1} has Dai balance ${num2}`);
 
   await vaultUSDC.approveUsdcToAave(1000);
   console.log(`pool address is:  ${await vaultUSDC.getPoolAddress()}`);
-  console.log(`my dai balance is ${await vaultUSDC.getUsdcBalance()}`);
+  console.log(`my USDC balance is ${await vaultUSDC.getUsdcBalance()}`);
   const val = await vaultUSDC.checkAllowance();
   //await vault.supplyDaiToAave(1000);
   console.log(`allowance is ${val}`);
