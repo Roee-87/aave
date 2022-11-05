@@ -18,14 +18,12 @@ async function main() {
   const amount = ethers.utils.parseEther("2"); //amount of USDC ($2) we want to to swap to Dai
 
   // Deploy to Mumbai Testnet
-  const VaultPolygonMumbai = await ethers.getContractFactory(
-    "VaultPolygonMumbai"
-  );
-  const vaultPolygonMumbai = await VaultPolygonMumbai.deploy();
+  const MumbaiSwap = await ethers.getContractFactory("MumbaiSwap");
+  const mumbaiSwap = await MumbaiSwap.deploy();
 
-  await vaultPolygonMumbai.deployed();
+  await mumbaiSwap.deployed();
 
-  console.log(`Swap contract deployed at:  ${vaultPolygonMumbai.address}`);
+  console.log(`Swap contract deployed at:  ${mumbaiSwap.address}`);
 
   // Mumbai testnet tokens
   //using the USDC and Dai contract address on Mumbai
@@ -51,12 +49,8 @@ async function main() {
     )}`
   );
 
-  await usdcContract.approve(vaultPolygonMumbai.address, amount);
-  await usdcContract.transferFrom(
-    owner.address,
-    vaultPolygonMumbai.address,
-    amount
-  );
+  await usdcContract.approve(mumbaiSwap.address, amount);
+  await usdcContract.transferFrom(owner.address, mumbaiSwap.address, amount);
 
   console.log(
     `owner has USDC balance of: ${ethers.utils
@@ -66,9 +60,7 @@ async function main() {
 
   console.log(
     `Mumbai vault contract has USDC balance of: ${ethers.utils
-      .formatEther(
-        `${await usdcContract.balanceOf(vaultPolygonMumbai.address)}`
-      )
+      .formatEther(`${await usdcContract.balanceOf(mumbaiSwap.address)}`)
       .toString()}`
   );
 
@@ -85,7 +77,7 @@ async function main() {
     buyToken: "0x9A753f0F7886C9fbF63cF59D0D4423C5eFaCE95B",
     // Note that the DAI token uses 18 decimal places, so `sellAmount` is `100 * 10^18`.
     sellAmount: amount.toString(),
-    //takerAddress: vaultPolygonMumbai.address, // we cannot use a smart contract addres in this value according to 0x documentation
+    //takerAddress: MumbaiSwap.address, // we cannot use a smart contract addres in this value according to 0x documentation
   };
 
   //0xf471d32cb40837bf24529fcf17418fc1a4807626 this is exchange proxy address for Mumbai. "to"
@@ -115,21 +107,19 @@ async function main() {
   //check vault contract balance for usdc and dai before swap
   console.log(
     `Mumbai vault contract has USDC balance of: ${ethers.utils
-      .formatEther(
-        `${await usdcContract.balanceOf(vaultPolygonMumbai.address)}`
-      )
+      .formatEther(`${await usdcContract.balanceOf(mumbaiSwap.address)}`)
       .toString()}`
   );
 
   console.log(
     `Mumbai vault contract has Dai balance of: ${ethers.utils
-      .formatEther(`${await daiContract.balanceOf(vaultPolygonMumbai.address)}`)
+      .formatEther(`${await daiContract.balanceOf(mumbaiSwap.address)}`)
       .toString()}`
   );
 
   //in ethers.js, we can send a transaction from a provider (the signer from line 13) to send a transaction
   const receipt = await owner.sendTransaction({
-    from: vaultPolygonMumbai.address, // This is probably where we specify the taker address (our vault contract)
+    from: mumbaiSwap.address, // This is probably where we specify the taker address (our vault contract)
     to: to,
     data: data,
     value: value, //should be 0 because we aren't using ETH in this transaction
@@ -140,15 +130,13 @@ async function main() {
   //check vault contract balance for usdc and dai AFTER swap
   console.log(
     `After Swap the Mumbai vault contract has USDC balance of: ${ethers.utils
-      .formatEther(
-        `${await usdcContract.balanceOf(vaultPolygonMumbai.address)}`
-      )
+      .formatEther(`${await usdcContract.balanceOf(mumbaiSwap.address)}`)
       .toString()}`
   );
 
   console.log(
     `After Swap the Mumbai vault contract has Dai balance of: ${ethers.utils
-      .formatEther(`${await daiContract.balanceOf(vaultPolygonMumbai.address)}`)
+      .formatEther(`${await daiContract.balanceOf(mumbaiSwap.address)}`)
       .toString()}`
   );
 }
