@@ -108,6 +108,10 @@ async function main() {
     allowanceTarget,
   } = await response.json();
 
+  //check that the proxy address is the same as "to"
+  console.log(`proxy address:  ${mumbai0xProxyAddr}`);
+  console.log(`'to' address:  ${to}`);
+
   //check vault contract balance for usdc and dai before swap
   console.log(
     `Mumbai vault contract has USDC balance of: ${ethers.utils
