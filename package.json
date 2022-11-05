@@ -19,6 +19,7 @@
     "typechain": "^8.1.0"
   },
   "dependencies": {
-    "@tenderly/hardhat-tenderly": "^1.1.6"
+    "@tenderly/hardhat-tenderly": "^1.1.6",
+    "dotenv": "^16.0.3"
   }
 }
