@@ -3,6 +3,7 @@ require("dotenv").config();
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY || "0x";
 const MATIC_RPC_URL = process.env.MATIC_RPC_URL;
+POLYGON_RPC_URL = process.env.POLYGON_RPC_URL;
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
@@ -15,10 +16,10 @@ module.exports = {
       },
       chainId: 137,
     },
-    mumbai: {
-      chainID: 80001,
+    polygon: {
+      chainID: 137,
       accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
-      url: MATIC_RPC_URL,
+      url: POLYGON_RPC_URL,
       saveDeployments: true,
     },
   },
