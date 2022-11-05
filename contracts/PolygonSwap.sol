@@ -24,7 +24,7 @@ contract PolygonSwap {
         IERC20(daiAddr).transfer(owner, contractBalance);
     }
 
-    function withdrawUcsd() external onlyOwner {
+    function withdrawUsdc() external onlyOwner {
         uint256 contractBalance = IERC20(usdcAddr).balanceOf(address(this));
         IERC20(usdcAddr).transfer(owner, contractBalance);
     }
@@ -67,18 +67,5 @@ contract PolygonSwap {
         //msg.sender.transfer(address(this).balance);
 
         // ...
-    }
-
-    function getDaiBalance() public view returns (uint256) {
-        return IERC20(daiAddr).balanceOf(msg.sender);
-    }
-
-    function checkDaiBalance(address addr) public view returns (uint256) {
-        return IERC20(daiAddr).balanceOf(addr);
-    }
-
-    function returnDaiToUser(uint256 _amount) public {
-        address addr = msg.sender;
-        IERC20(daiAddr).transfer(addr, _amount);
     }
 }
