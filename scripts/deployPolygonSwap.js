@@ -144,8 +144,8 @@ async function main() {
   //   });
 
   //call the fillQuote() function
-  await polygonSwap.fillQuote(amount, usdcAddr, to, data);
-  //tx.wait(10);
+  const tx = await polygonSwap.fillQuote(amount, usdcAddr, to, data);
+  tx.wait(100);
 
   //check vault contract balance for usdc and dai AFTER swap
   console.log(
